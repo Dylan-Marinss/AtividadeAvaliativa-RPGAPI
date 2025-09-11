@@ -89,9 +89,6 @@ namespace RpgApi.Controllers
         }
 
         return BadRequest("A classe não encontrada");
-}
-        
-
-        
+        }
     }
 }
