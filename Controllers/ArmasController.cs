@@ -12,38 +12,21 @@ namespace RpgApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PersonagensController : ControllerBase
+       public class ArmasController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public PersonagensController(DataContext context)
+        public ArmasController(DataContext context)
         {
             _context = context;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetSingle(int id)
-        {
-            try
-            {
-                Personagem p = await _context.TB_PERSONAGENS.FirstOrDefaultAsync(pBusca => pBusca.Id == id);
-
-                
-                return Ok(p);
-            }
-            catch (System.Exception ex)
-            {
-                
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("GetAll")]
+         [HttpGet("GetAll")]
          public async Task<IActionResult> Get()
          {
             try
             {
-                List<Personagem> lista = await _context.TB_PERSONAGENS.ToListAsync();
+                List<Arma> lista = await _context.TB_ARMA.ToListAsync();
                 return Ok(lista);
             }
             catch (System.Exception ex)
@@ -52,19 +35,19 @@ namespace RpgApi.Controllers
             }
          }
 
-         [HttpPost]
-         public async Task<IActionResult> Add(Personagem novoPersonagem)
+        [HttpPost]
+         public async Task<IActionResult> Add(Arma novaArma)
          {
             try
             {
-                if(novoPersonagem.PontosVida > 100)
+                if(novaArma.Dano > 25)
                 {
-                    throw new Exception("Pontos de vida não pode ser maior que 100");
+                    throw new Exception("O dano não pode ser maior que 25");
                 }
-                await _context.TB_PERSONAGENS.AddAsync(novoPersonagem);
+                await _context.TB_ARMA.AddAsync(novaArma);
                 await _context.SaveChangesAsync();
 
-                return Ok(novoPersonagem.Id);
+                return Ok(novaArma.Id);
             }
             catch (System.Exception ex) 
             {
@@ -73,16 +56,33 @@ namespace RpgApi.Controllers
             }
          }
 
-         [HttpPut]
-          public async Task<IActionResult> Update(Personagem novoPersonagem)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSingle(int id)
+        {
+            try
+            {
+                Arma a = await _context.TB_ARMA.FirstOrDefaultAsync(aBusca => aBusca.Id == id);
+
+                
+                return Ok(a);
+            }
+            catch (System.Exception ex)
+            {
+                
+                return BadRequest(ex.Message);
+            }
+        }
+
+          [HttpPut]
+          public async Task<IActionResult> Update(Arma novaArma)
           {
             try
             {
-                if(novoPersonagem.PontosVida > 100)
+                if(novaArma.Dano > 100)
                 {
-                    throw new Exception("Pontos de vida não pode ser maior que 100");
+                    throw new Exception("O dano não pode ser maior que 25");
                 }
-                _context.TB_PERSONAGENS.Update(novoPersonagem);
+                _context.TB_ARMA.Update(novaArma);
                 int linhasAfetadas = await _context.SaveChangesAsync();
 
                 return Ok(linhasAfetadas);
@@ -94,13 +94,13 @@ namespace RpgApi.Controllers
             }
           }
 
-          [HttpDelete("{id}")]
+               [HttpDelete("{id}")]
           public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                Personagem pRemover = await _context.TB_PERSONAGENS.FirstOrDefaultAsync(p => p.Id == id);
-                _context.TB_PERSONAGENS.Remove(pRemover);
+                Arma aRemover = await _context.TB_ARMA.FirstOrDefaultAsync(a => a.Id == id);
+                _context.TB_ARMA.Remove(aRemover);
                 int linhasAfetadas = await _context.SaveChangesAsync();
                 return Ok(linhasAfetadas);
             }
@@ -114,3 +114,5 @@ namespace RpgApi.Controllers
         }
     }
 }
+   
+
