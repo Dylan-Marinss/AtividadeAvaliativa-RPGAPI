@@ -44,6 +44,9 @@ namespace RpgApi.Controllers
                 {
                     throw new Exception("O dano não pode ser maior que 25");
                 }
+
+                Personagem p = await _context.TB_PERSONAGENS.FirstOrDefaultAsync(p => p.Id == novaArma.PersonagemId);
+
                 await _context.TB_ARMA.AddAsync(novaArma);
                 await _context.SaveChangesAsync();
 

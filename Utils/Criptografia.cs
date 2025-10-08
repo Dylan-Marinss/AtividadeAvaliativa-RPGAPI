@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace RpgApi.Utils
@@ -14,5 +15,22 @@ namespace RpgApi.Utils
                 hash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(passoword));
             }
         }
+
+        public static bool VerificarPassowordHash(string passoword, byte[] hash, byte[] salt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(salt))
+        {   
+            var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(passoword));
+            for (int i = 0; i < computeHash.Length; i++ )
+            {
+                if(computeHash[i] != hash[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+            
+            }
     }
 }

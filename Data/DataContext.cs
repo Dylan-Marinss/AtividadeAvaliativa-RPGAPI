@@ -18,13 +18,9 @@ namespace RpgApi.Data
         }
 
         public DbSet<Personagem> TB_PERSONAGENS { get; set; } //prop
-
         public DbSet<Arma> TB_ARMA { get; set; }
-
         public DbSet<Usuario> TB_USUARIOS {get; set;}
-
         public DbSet<Habilidade> TB_HABILIDADES {get; set;}
-
         public DbSet<PersonagemHabilidade> TB_PERSONAGENS_HABILIDADES {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -90,15 +86,12 @@ namespace RpgApi.Data
 
             modelBuilder.Entity<PersonagemHabilidade>().HasData(
                 new PersonagemHabilidade() {PersonagemId = 1, HabilidadeId = 1 },
-                new PersonagemHabilidade() {PersonagemId = 1, HabilidadeId = 1 },
                 new PersonagemHabilidade() {PersonagemId = 2, HabilidadeId = 1 },
-                new PersonagemHabilidade() {PersonagemId = 3, HabilidadeId = 1 },
-                new PersonagemHabilidade() {PersonagemId = 3, HabilidadeId = 1 },
-                new PersonagemHabilidade() {PersonagemId = 4, HabilidadeId = 1 },
+                new PersonagemHabilidade() {PersonagemId = 3, HabilidadeId = 2 },
+                new PersonagemHabilidade() {PersonagemId = 4, HabilidadeId = 3 },
                 new PersonagemHabilidade() {PersonagemId = 5, HabilidadeId = 1 },
                 new PersonagemHabilidade() {PersonagemId = 6, HabilidadeId = 1 },
-                new PersonagemHabilidade() {PersonagemId = 7, HabilidadeId = 1 },
-                
+                new PersonagemHabilidade() {PersonagemId = 7, HabilidadeId = 4 }
             );
 
             Usuario user = new Usuario();
