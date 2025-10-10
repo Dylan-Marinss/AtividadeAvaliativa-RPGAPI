@@ -170,3 +170,7 @@ D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\publish\app
 D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\publish\RpgApi.deps.json
 D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\publish\RpgApi.runtimeconfig.json
 D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\publish\RpgApi.staticwebassets.endpoints.json
+D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\Dylan2DS\DS-I(Desenvolvimento de sistema)\RpgApi\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll

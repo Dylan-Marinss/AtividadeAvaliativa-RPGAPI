@@ -11,39 +11,54 @@ namespace RpgApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PersonagemHabilidadeController : ControllerBase
+    public class PersonagemHabilidadesController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public PersonagemHabilidadeController(DataContext context)
+        public PersonagemHabilidadesController(DataContext context)
         {
             _context = context;
         }
 
-    [HttpPost]
-    public async Task<IActionResult> AddPersonagemHabilidadeAsync(PersonagemHabilidade novoPersonagemHabilidade)
-    {
-        try
+        [HttpPost]
+        public async Task<IActionResult> AddPersonagemHabilidadeAsync(PersonagemHabilidade novoPersonagemHabilidade)
         {
-            Personagem personagem = await _context.TB_PERSONAGENS
-            .Include(p => p.Arma)
-            .Include(p => p.PersonagemHabilidades).ThenInclude(ps => ps.Habilidade)
-            .FirstOrDefaultAsync(p => p.Id == novoPersonagemHabilidade.PersonagemId);
+            try
+            {
+                Personagem personagem = await _context.TB_PERSONAGENS
+                    .Include(p => p.Arma)
+                    .Include(p => p.PersonagemHabilidades).ThenInclude(ps => ps.Habilidade)
+                    .FirstOrDefaultAsync(p => p.Id == novoPersonagemHabilidade.PersonagemId);
 
-            if (personagem == null)
-            throw new Exception("Personagem não encontrado para Id Informado");
+                if(personagem == null)
+                    throw new System.Exception("Personagem não encontrado para o Id informado");
 
-            Habilidade habilidade = await _context.TB_HABILIDADES.FirstOrDefaultAsync(h => h.Id == novoPersonagemHabilidade.HabilidadeId);
+                Habilidade habilidade = await _context.TB_HABILIDADES.FirstOrDefaultAsync(h => h.Id == novoPersonagemHabilidade.HabilidadeId);
 
-            if(habilidade == null)
-             throw new Exception("Habilidade não encontrada");
+                if(habilidade == null)
+                    throw new System.Exception("Habilidade não encontrada!");
 
+                PersonagemHabilidade ph = new PersonagemHabilidade();
+                ph.Personagem = personagem;
+                ph.Habilidade = habilidade;
+                await _context.TB_PERSONAGENS_HABILIDADES.AddAsync(ph);
+                int linhasAfetadas = await _context.SaveChangesAsync();
+
+                return Ok(linhasAfetadas);
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-        catch (System.Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
 
+
+
+
+
+
+
+        
     }
 }
